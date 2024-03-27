@@ -27,6 +27,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public void registerManager(Manager manager) {
+    
         managerRepo.save(manager);
     }
 

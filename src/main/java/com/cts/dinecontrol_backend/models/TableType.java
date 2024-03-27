@@ -21,5 +21,10 @@ public class TableType {
     private String typeName;
 
     private int capacity;
+
+	public void setTypeId(int typeId2) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

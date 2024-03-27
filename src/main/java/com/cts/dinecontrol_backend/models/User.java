@@ -17,7 +17,8 @@ import lombok.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    @Column(name="user_id")
+    private int userId;// user_id
 
     @Column(nullable = false)
     private String name;
@@ -27,4 +28,14 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+	public Object getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getUserId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

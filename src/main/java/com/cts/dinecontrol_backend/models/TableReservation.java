@@ -37,8 +37,18 @@ public class TableReservation {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
+
+	public void setStatus(ReservationStatus status2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setStatus(String pENDING) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

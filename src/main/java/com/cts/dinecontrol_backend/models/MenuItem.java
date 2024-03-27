@@ -2,6 +2,7 @@ package com.cts.dinecontrol_backend.models;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,9 @@ public class MenuItem {
 
     private String photoUrl;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "manager_id")
     private Manager manager;
+
+	
 }
