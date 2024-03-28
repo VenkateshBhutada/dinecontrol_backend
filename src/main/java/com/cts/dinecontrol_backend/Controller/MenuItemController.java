@@ -42,11 +42,12 @@ public class MenuItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Menu added successfully.");
     }
 
-    @PutMapping("/{itemId}")
-    public ResponseEntity<Void> updateMenuItem(@PathVariable int itemId, @RequestBody MenuItem menuItem) {
-        menuItem.setItemId(itemId);
-        menuItemService.updateMenuItem(menuItem);
-        return ResponseEntity.ok().build();
+    @PutMapping("/updatemenu")
+    public ResponseEntity<String> updateMenuItem(@RequestParam( "item_id")int itemId, @RequestBody MenuItem menuItem) {
+    	System.out.println(itemId);
+        
+        menuItemService.updateMenuItem(itemId, menuItem);
+        return ResponseEntity.ok().body("Menu Updated Successfully");
     }
 
     @DeleteMapping("/{itemId}")

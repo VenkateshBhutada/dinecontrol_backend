@@ -26,9 +26,9 @@ public class ManagerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> registerManager(@RequestBody Manager manager) {
+    public ResponseEntity<String> registerManager(@RequestBody Manager manager) {
         managerService.registerManager(manager);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body("Manager Registered Successfully!");
     }
 
     @PostMapping("/login")

@@ -8,13 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.dinecontrol_backend.Repository.TableReservationRepo;
+import com.cts.dinecontrol_backend.Repository.TableTypeRepo;
+import com.cts.dinecontrol_backend.Repository.UserRepo;
+import com.cts.dinecontrol_backend.dtolayer.TableReservationDTO;
 import com.cts.dinecontrol_backend.models.ReservationStatus;
 import com.cts.dinecontrol_backend.models.TableReservation;
+import com.cts.dinecontrol_backend.models.TableType;
+import com.cts.dinecontrol_backend.models.User;
 
 @Service
 public class TableReservationServiceImpl implements TableReservationService {
     @Autowired
     private TableReservationRepo tableReservationRepo;
+    
+    @Autowired
+    private UserRepo userRepo;
+    
+    @Autowired
+    private TableTypeRepo tableTypeRepo;
 
     @Override
     public List<TableReservation> getAllReservations() {
@@ -27,10 +38,19 @@ public class TableReservationServiceImpl implements TableReservationService {
     	return null;
     }
 
-    @Override
-    public boolean makeReservation(TableReservation reservation) {
+    public boolean makeReservation(TableReservationDTO tableReservationDTO) {
         try {
-            tableReservationRepo.save(reservation);
+        	Optional<User> user = userRepo.findById(tableReservationDTO.userId());
+        	Optional<TableType> table = tableTypeRepo.findById(tableReservationDTO.tableId());
+            TableReservation tableReservation = TableReservation.builder()
+            		.reservationDate(tableReservationDTO.reservationDate())
+            		.reservationTime(tableReservationDTO.reservationTime())
+            		.userName(tableReservationDTO.userName())
+            		.status(ReservationStatus.PENDING)
+            		.table(table.get())
+            		.user(user.get())
+            		.build();
+        	tableReservationRepo.save(tableReservation);
             return true;
         } catch (Exception e) {
             System.out.println("Failed to make reservation: " + e.getMessage());
@@ -38,8 +58,6 @@ public class TableReservationServiceImpl implements TableReservationService {
         }
     }
 
-//    @Autowired
-//    private TableReservationRepo tableReservationRepo;
 
     public TableReservation createReservation(TableReservation reservation) {
         reservation.setStatus(ReservationStatus.PENDING);
@@ -50,7 +68,7 @@ public class TableReservationServiceImpl implements TableReservationService {
       Optional<TableReservation> reservation = tableReservationRepo.findById(reservationId);
       if(reservation.isPresent()) {
     	  
-    	  reservation.get().setStatus(status);
+//    	  reservation.get().setStatus(status);
       } 
         return tableReservationRepo.save(reservation.get());
     }
@@ -61,10 +79,19 @@ public class TableReservationServiceImpl implements TableReservationService {
         tableReservationRepo.deleteById(reservationId);
     }
 
+	
+
 	@Override
-	public TableReservation updateReservationStatus(int reservationId, String aCCEPTED) {
+	public void acceptReservation(int reservationId) {
 		// TODO Auto-generated method stub
-		return null;
+		tableReservationRepo.acceptReservation(reservationId);
+		
+	}
+
+	@Override
+	public void declineReservation(int reservationId) {
+		tableReservationRepo.declineReservation(reservationId);
+		
 	}
 
 //    @Override

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.cts.dinecontrol_backend.Service.TableReservationService;
+import com.cts.dinecontrol_backend.dtolayer.TableReservationDTO;
 import com.cts.dinecontrol_backend.models.ReservationStatus;
 import com.cts.dinecontrol_backend.models.TableReservation;
 
@@ -19,16 +20,12 @@ public class TableReservationController {
     private TableReservationService tableReservationService;
 
     @PostMapping("/request")
-    public ResponseEntity<Void> makeReservationRequest(@RequestBody TableReservation reservation) {
-        boolean success = tableReservationService.makeReservation(reservation);
-        if (success) {
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<String> makeReservationRequest(@RequestBody TableReservationDTO tableReservationDTO) {
+         tableReservationService.makeReservation(tableReservationDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Successfully Reservation request sent.");
     }
 
-    @GetMapping("/requests")
+    @GetMapping("/allrequests")
     public ResponseEntity<List<TableReservation>> getAllReservationRequests() {
         List<TableReservation> reservationRequests = tableReservationService.getAllReservations();
         return ResponseEntity.ok(reservationRequests);
@@ -53,16 +50,16 @@ public class TableReservationController {
 //            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 //        }
 //    }
-//    @PutMapping("/{reservationId}/accept")
-//    public ResponseEntity<TableReservation> acceptReservation(@PathVariable Long reservationId) {
-//        TableReservation updatedReservation = tableReservationService.updateReservationStatus(reservationId, ReservationStatus.ACCEPTED);
-//        return ResponseEntity.ok(updatedReservation);
-//    }
-//
-//    @PutMapping("/{reservationId}/decline")
-//    public ResponseEntity<TableReservation> declineReservation(@PathVariable Long reservationId) {
-//        TableReservation updatedReservation = tableReservationService.updateReservationStatus(reservationId, ReservationStatus.DECLINED);
-//        return ResponseEntity.ok(updatedReservation);
-//    }
+    @PutMapping("/accept")
+    public ResponseEntity<String> acceptReservation(@RequestParam("reservation_id") int reservationId) {
+        tableReservationService.acceptReservation(reservationId);
+        return ResponseEntity.ok("Table request Accepted");
+    }
+
+    @PutMapping("/decline")
+    public ResponseEntity<String> declineReservation(@RequestParam("reservation_id") int reservationId) {
+      tableReservationService.declineReservation(reservationId);
+        return ResponseEntity.ok("Table request Declined");
+    }
 }
 

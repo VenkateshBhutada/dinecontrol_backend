@@ -3,6 +3,7 @@ package com.cts.dinecontrol_backend.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,6 @@ import lombok.*;
 
 @Data
 @Entity
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,7 +26,7 @@ public class TableReservation {
 
     private String userName;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.MERGE)
     @JoinColumn(name = "table_id")
     private TableType table;
 
@@ -36,19 +36,11 @@ public class TableReservation {
 
     private String status;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-	public void setStatus(ReservationStatus status2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setStatus(String pENDING) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
 
 

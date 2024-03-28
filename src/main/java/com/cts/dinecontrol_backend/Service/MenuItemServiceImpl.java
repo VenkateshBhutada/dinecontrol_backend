@@ -32,7 +32,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Override
     public void addMenuItem(MenuItemDTO menuItemDTO) {
-//    	System.out.println(menuItemDTO);
+
     	Optional<Manager> manager = managerRepo.findById(menuItemDTO.managerId());
         if(manager.isPresent()) {
         	MenuItem menuItem = MenuItem.builder()
@@ -43,16 +43,17 @@ public class MenuItemServiceImpl implements MenuItemService {
         			.taste(menuItemDTO.taste())
         			.manager(manager.get())
         			.build();
-//        	System.out.println(menuItem);
+
          	MenuItem menu = menuItemRepo.save(menuItem);
-//         	System.out.println(menu);
+
         }
         
       }
 
     @Override
-    public void updateMenuItem(MenuItem menuItem) {
-        menuItemRepo.save(menuItem);
+    public void updateMenuItem(int itemId, MenuItem menuItem) {
+//    	menuItemRepo.updateMenuItem(menuItem.getManager(), menuItem.getGroupName(),menuItem.getName(), menuItem.getPhotoUrl(),menuItem.getPrice(), menuItem.getTaste(),  menuItem.getItemId());
+
     }
 
     @Override

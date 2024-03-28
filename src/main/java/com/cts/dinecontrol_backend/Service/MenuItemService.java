@@ -9,7 +9,7 @@ public interface MenuItemService {
     List<MenuItemDTO> getAllMenuItems();
     MenuItem getMenuItemById(int itemId);
     void addMenuItem(MenuItemDTO menuItem);
-    void updateMenuItem(MenuItem menuItem);
+    void updateMenuItem(int itemId,MenuItem menuItem);
     void deleteMenuItem(int itemId);
     List<MenuItem> getMenuItemsWithVeg();
    
