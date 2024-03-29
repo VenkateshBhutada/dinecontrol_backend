@@ -24,21 +24,21 @@ public class TableTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addTableType(@RequestBody TableType tableType) {
+    public ResponseEntity<String> addTableType(@RequestBody TableType tableType) {
         tableTypeService.addTableType(tableType);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body("Table added successfully!");
     }
 
     @PutMapping("/update-table-type")
     public ResponseEntity<String> updateTableType(@RequestParam("type_id") int typeId, @RequestBody TableType tableType) {
         System.out.println(typeId);
     	tableTypeService.updateTableType(typeId, tableType);
-        return ResponseEntity.ok().body("Successfully updated");
+        return ResponseEntity.ok().body("Table successfully updated");
     }
 
     @DeleteMapping("/{typeId}")
-    public ResponseEntity<Void> deleteTableType(@PathVariable int typeId) {
+    public ResponseEntity<String> deleteTableType(@PathVariable int typeId) {
         tableTypeService.deleteTableType(typeId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Table deleted successfully!");
     }
 }

@@ -31,25 +31,7 @@ public class TableReservationController {
         return ResponseEntity.ok(reservationRequests);
     }
 
-//    @PutMapping("/accept/{reservationId}")
-//    public ResponseEntity<Void> acceptReservation(@PathVariable int reservationId) {
-//        boolean success = tableReservationService.confirmTable(reservationId);
-//        if (success) {
-//            return ResponseEntity.ok().build();
-//        } else {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-//
-//    @PutMapping("/decline/{reservationId}")
-//    public ResponseEntity<Void> declineReservation(@PathVariable int reservationId) {
-//        boolean success = tableReservationService.confirmTable1(reservationId);
-//        if (success) {
-//            return ResponseEntity.ok().build();
-//        } else {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+
     @PutMapping("/accept")
     public ResponseEntity<String> acceptReservation(@RequestParam("reservation_id") int reservationId) {
         tableReservationService.acceptReservation(reservationId);

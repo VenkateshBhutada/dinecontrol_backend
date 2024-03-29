@@ -30,12 +30,10 @@ public class User {
     private String password;
 
 	public Object getPassword() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public int getUserId() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

@@ -5,12 +5,12 @@ public record LoginUserDTO(
 		 String password) {
 
 	public Object getPassword() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	 public String getEmail() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

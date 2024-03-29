@@ -50,11 +50,31 @@ public class MenuItemServiceImpl implements MenuItemService {
         
       }
 
-    @Override
-    public void updateMenuItem(int itemId, MenuItem menuItem) {
-//    	menuItemRepo.updateMenuItem(menuItem.getManager(), menuItem.getGroupName(),menuItem.getName(), menuItem.getPhotoUrl(),menuItem.getPrice(), menuItem.getTaste(),  menuItem.getItemId());
+//    @Override
+//    public void updateMenuItem(int itemId, MenuItem menuItem) {
+////    	menuItemRepo.updateMenuItem(menuItem.getManager(), menuItem.getGroupName(),menuItem.getName(), menuItem.getPhotoUrl(),menuItem.getPrice(), menuItem.getTaste(),  menuItem.getItemId());
+//
+//    }
 
-    }
+
+        @Override
+        public void updateMenuItem(int itemId, MenuItem menuItem) {
+            // Retrieve the existing menu item from the database
+            MenuItem existingMenuItem = menuItemRepo.findById(itemId)
+                                        .orElseThrow(() -> new IllegalArgumentException("Item not found with id " + itemId));
+
+            // Update the fields of the existing menu item with the new values
+            existingMenuItem.setGroupName(menuItem.getGroupName());
+            existingMenuItem.setName(menuItem.getName());
+            existingMenuItem.setPrice(menuItem.getPrice());
+            existingMenuItem.setTaste(menuItem.getTaste());
+            existingMenuItem.setPhotoUrl(menuItem.getPhotoUrl());
+
+            // Save the updated menu item back to the database
+            menuItemRepo.save(existingMenuItem);
+        }
+        
+
 
     @Override
     public void deleteMenuItem(int itemId) {

@@ -23,7 +23,7 @@ public class TableType {
     private int capacity;
 
 	public void setTypeId(int typeId2) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }

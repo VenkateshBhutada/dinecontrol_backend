@@ -28,12 +28,12 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         userService.registerUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User register successfully.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registerd successfully.");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> loginUser(@RequestBody LoginUserDTO loginUserDTO) {
+    public ResponseEntity<String> loginUser(@RequestBody LoginUserDTO loginUserDTO) {
         UserResponseDTO response = userService.loginUser(loginUserDTO);
-        return ResponseEntity.status(response.status()).body(response);
+        return ResponseEntity.status(response.status()).body("User successfully logged in!");
     }
 }
